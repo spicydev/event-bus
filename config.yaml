@@ -1,0 +1,13 @@
+spanner:
+  project_id: test-project
+  instance_id: test-instance
+  database_id: test-database
+  emulator_enabled: false
+  emulator_host: 
+pubsub:
+  project_id: test-project
+  emulator_enabled: false
+  emulator_host:
+  subscription_id: test-sub 
+server:
+  shutdown_delay: 10

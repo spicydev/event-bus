@@ -1,0 +1,13 @@
+spanner:
+  project_id: mirchi-dev
+  instance_id: mirchi-dev-inst
+  database_id: mirchi-dev-db
+  emulator_enabled: true
+  emulator_host: mirchi.dev:50010
+pubsub:
+  project_id: mirchi-dev
+  emulator_enabled: true
+  emulator_host: mirchi.dev:50050
+  subscription_id: mirchi-sub
+server:
+  shutdown_delay: 2
