@@ -8,6 +8,14 @@ pubsub:
   project_id: mirchi-dev
   emulator_enabled: true
   emulator_host: mirchi.dev:50050
-  subscription_id: mirchi-sub
+  subscriptions:
+    - id: "account-events-sub-dev"
+      topic_id: "account-events-topic-dev"
+      target_table: "accounts"
+      entity_type: "account"
+    - id: "order-events-sub-dev"
+      topic_id: "order-events-topic-dev"
+      target_table: "orders"
+      entity_type: "order"
 server:
   shutdown_delay: 2

@@ -55,18 +55,27 @@ func NewRepository[T any](client *Client, table string) *Repository[T] {
 func (r *Repository[T]) Save(ctx context.Context, entity T) error {
 	mutation, err := spanner.InsertOrUpdateStruct(r.table, entity)
 	if err != nil {
-		return err
+		return fmt.Errorf("failed to create mutation for table %s: %w", r.table, err)
 	}
 	_, err = r.spannerClient.Apply(ctx, []*spanner.Mutation{mutation})
-	return err
+	if err != nil {
+		return fmt.Errorf("failed to apply mutation to table %s: %w", r.table, err)
+	}
+	return nil
 }
 
 func (r *Repository[T]) SaveAll(ctx context.Context, entities []T) error {
 	var mutations []*spanner.Mutation
-	for _, entity := range entities {
-		m, _ := spanner.InsertOrUpdateStruct(r.table, entity)
+	for i, entity := range entities {
+		m, err := spanner.InsertOrUpdateStruct(r.table, entity)
+		if err != nil {
+			return fmt.Errorf("failed to create mutation for entity at index %d for table %s: %w", i, r.table, err)
+		}
 		mutations = append(mutations, m)
 	}
 	_, err := r.spannerClient.Apply(ctx, mutations)
-	return err
+	if err != nil {
+		return fmt.Errorf("failed to apply mutations to table %s: %w", r.table, err)
+	}
+	return nil
 }

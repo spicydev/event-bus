@@ -20,9 +20,16 @@ type Server struct {
 type PubSub struct {
 	ProjectID       string `yaml:"project_id"`
 	CredentialsFile string `yaml:"credentials_file"`
-	EmulatorEnabled bool   `yaml:"emulator_enabled"`
-	EmulatorHost    string `yaml:"emulator_host"`
-	SubscriptionID  string `yaml:"subscription_id"`
+	EmulatorEnabled bool                 `yaml:"emulator_enabled"`
+	EmulatorHost    string               `yaml:"emulator_host"`
+	Subscriptions   []SubscriptionConfig `yaml:"subscriptions"`
+}
+
+type SubscriptionConfig struct {
+	ID           string `yaml:"id"`
+	TopicID      string `yaml:"topic_id"`
+	TargetTable  string `yaml:"target_table"`
+	EntityType   string `yaml:"entity_type"`
 }
 
 type Spanner struct {

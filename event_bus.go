@@ -20,13 +20,13 @@ func main() {
 	defer cancel()
 
 	// Setup Spanner Client Connection
-	spanner_client := loadSpannerClient(ctx, props)
-	defer spanner_client.Close()
+	spannerClient := loadSpannerClient(ctx, props)
+	defer spannerClient.Close()
 
 	// Setup PubSub Client Connection
 	pubsubClient := loadPubSubClient(ctx, props)
 	defer pubsubClient.Close()
-	pubsubClient.StartMsgReceivers(ctx, props.PubSub, spanner_client)
+	pubsubClient.StartMsgReceivers(ctx, props.PubSub, spannerClient)
 
 	// Setup a channel to receive OS signals for graceful shutdown
 	signals := make(chan os.Signal, 1)
